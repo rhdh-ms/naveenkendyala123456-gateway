@@ -1,0 +1,68 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: naveenkendyala123456-poi-gateway-app-dev
+  annotations:
+    argocd/app-name: naveenkendyala123456-poi-gateway-app-dev
+    backstage.io/kubernetes-id: naveenkendyala123456-poi-gateway-app
+    backstage.io/kubernetes-namespace: naveenkendyala123456
+    backstage.io/techdocs-ref: dir:.
+    github.com/project-slug: rhdh-ms/naveenkendyala123456-gateway
+    janus-idp.io/tekton-enabled: 'true'
+  tags:
+    - java
+    - quarkus
+    - maven
+    - workshop
+  links:
+    - url: https://console-openshift-console.apps.igb2792k.eastus2.aroapp.io/dev-pipelines/ns/naveenkendyala123456/
+      title: Pipelines
+      icon: web
+    - url: https://console-openshift-console.apps.igb2792k.eastus2.aroapp.io/k8s/ns/naveenkendyala123456/deployments/naveenkendyala123456-poi-gateway-app
+      title: Deployment
+      icon: web
+    - url: https://devspaces.apps.igb2792k.eastus2.aroapp.io/#https://github.com/rhdh-ms/naveenkendyala123456-gateway?che-editor=che-incubator/che-code/latest&devfilePath=.devfile-vscode.yaml
+      title: OpenShift Dev Spaces (VS Code)
+      icon: web
+spec:
+  type: service
+  lifecycle: production
+  owner: "user:default/naveenkendyala123456"
+  system: workshop-system-naveenkendyala123456
+  providesApis:
+    - gateway-api-naveenkendyala123456
+  consumesApis:
+    - backend-api-naveenkendyala123456
+---
+apiVersion: backstage.io/v1alpha1
+kind: System
+metadata:
+  name: workshop-system-naveenkendyala123456
+  tags:
+    - backstage
+    - janus-idp
+    - openshift
+    - workshop
+    - rh-summit
+spec:
+  owner: "user:default/naveenkendyala123456"
+---
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: gateway-api-naveenkendyala123456
+  description: API surface exposed to interact with Backends (summit POIs + parks data) via the Gateway
+  links:
+    - url: http://naveenkendyala123456-poi-gateway-app-naveenkendyala123456.apps.igb2792k.eastus2.aroapp.io/q/swagger-ui
+      title: Swagger UI
+      icon: web
+    - url: https://github.com/rhdh-ms/naveenkendyala123456-gateway/tree/main/src/main/resources/META-INF/openapi.yaml
+      title: API Spec
+      icon: code
+spec:
+  type: openapi
+  lifecycle: production
+  owner: "user:default/naveenkendyala123456"
+  system: workshop-system-naveenkendyala123456
+  definition:
+    $text: https://github.com/rhdh-ms/naveenkendyala123456-gateway/tree/main/src/main/resources/META-INF/openapi.yaml
